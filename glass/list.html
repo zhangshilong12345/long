@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script type=text/javascript src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<script>
+    function del()
+    {
+        if(confirm("确定要删除吗？"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+</script>
+<body>
+<form action="ss" method="post">
+    <input type="text" value="username">
+    <button>搜索</button>
+</form>
+<table class="table">
+    <tr>
+        <td>id</td>
+        <td>文章标题</td>
+        <td>文章描述</td>
+        <td>文章图片</td>
+        <td>文章内容</td>
+        <td>排序</td>
+        <td>操作</td>
+    </tr>
+    全选<input type="checkbox" id="quanxuan"><br />
+    {foreach $list as $k=>$v}
+    <tr>
+        <td>{$v.id}</td>
+        <td><input type="checkbox" class="qx" value="{$v.id}">{$v.username}</td>
+        <td>{$v.miao}</td>
+        <td><img style="width: 70px;height: 70px" src="{$v.img}"></td>
+        <td>{$v.rong}</td>
+        <td>{$v.sort}</td>
+        <td>
+            <a href="del?id={$v.id}"><button type="button" class="btn btn-danger" onclick="del()">删除</button></a>
+            <a href=""><button type="button" class="btn btn-success">新增</button></a>
+            <a href=""><button type="button" class="btn btn-warning">编辑</button></a>
+        </td>
+    </tr>
+    {/foreach}
+</table>
+{$list|raw}
+</body>
+<script type="text/javascript">
+    $("#quanxuan").click(function(){
+        var xz = $(this).prop("checked");//判断全选按钮的选中状态
+        var ck = $(".qx").prop("checked",xz); //让class名为qx的选项的选中状态和全选按钮的选中状态一致。
+    });
+</script>
+</html>
